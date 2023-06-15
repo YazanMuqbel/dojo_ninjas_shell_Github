@@ -1,0 +1,49 @@
+dojofrom dojo_ninjas-app.models import Dojo
+from dojo_ninjas-app.models import Ninja
+
+Query#1
+Dojo.objects.create(name="Yazan", city="Ramallah", state="PS")
+Dojo.objects.create(name="Ali", city="Cairo", state="EG")
+Dojo.objects.create(name="Nada", city="Paris", state="FR")
+
+Query#2
+Dojo.objects.all().delete()
+
+Query#3
+Dojo.objects.create(name="John", city="Boston", state="NY")
+Dojo.objects.create(name="Sam", city="Michigan", state="MC")
+Dojo.objects.create(name="Layla", city="New York", state="NY")
+
+Query#4
+d1 = Dojo.objects.get(id=4)
+Ninja.objects.create(first_name="Sam", last_name="John", dojo=d1)
+Ninja.objects.create(first_name="Tony", last_name="Smith", dojo=d1)
+Ninja.objects.create(first_name="Lara", last_name="Walker", dojo=d1)
+
+
+
+d2 = Dojo.objects.get(id=5)
+Ninja.objects.create(first_name="Walter", last_name="Steem", dojo=d2)
+Ninja.objects.create(first_name="Rony", last_name="Froze", dojo=d2)
+Ninja.objects.create(first_name="Amilia", last_name="Walker", dojo=d2)
+
+d3 = Dojo.objects.get(id=6)
+Ninja.objects.create(first_name="Harney", last_name="Stone", dojo=d3)
+Ninja.objects.create(first_name="Aber", last_name="Stream", dojo=d3)
+Ninja.objects.create(first_name="Ada", last_name="Watson", dojo=d3)
+
+
+Query#5
+fd = Dojo.objects.first()
+Ninja.objects.filter(dojo=fd)
+
+
+Query#6
+ld = Dojo.objects.last()
+Ninja.objects.filter(dojo=ld)
+
+Query#7
+Ninja.objects.last().dojo
+
+Query#8
+Dojo.objects.create(name="Nabeel", city="Boston", state="NY", desc="expert Dojo")

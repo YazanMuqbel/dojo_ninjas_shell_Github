@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Dojo Ninja App</title>
+    <link rel="stylesheet" href="{% static 'dojo_ninjas_app/css/bootstrap.min.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-6" style="float: left;">
+                <h2 class="heading-3" style="text-align: center;">Add Dojo</h2>
+                <form action="{% url 'create-dojo' %}" method="post">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="name">Name: </label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="city">City: </label>
+                        <input type="text" class="form-control" name="city" id="city">
+                    </div>
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="state">State: </label>
+                        <input type="text" class="form-control" name="state" id="state">
+                    </div>
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="desc">Description: </label>
+                        <input type="text" class="form-control" name="desc" id="desc">
+                    </div>
+    
+                    <button class="btn btn-secondary" type="submit" style="text-align: right;">Add Dojo</button>
+                </form>
+            </div>
+    
+            <div class="col-6" style="float: right;">
+                <h2 class="heading-3"  style="text-align: center;">Add Ninja</h2>
+                <form action="{% url 'create-ninja' %}" method="post">
+                    {% csrf_token %}
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="first">First Name: </label>
+                        <input class="form-control" type="text" name="first" id="first">
+                    </div>
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="last">Last Name: </label>
+                        <input class="form-control" type="text" name="last" id="last">
+    
+                    </div>
+    
+                    <div class="input-group mb-2">
+                        <label class="input-group-text" for="dojo">Dojo: </label>
+                        <select class="form-control" name="dojo" id="dojo">
+    
+                            {% for dojo in dojos %}
+                            <option value="{{dojo.id}}">{{dojo.name}}</option>
+                            {% endfor %}
+    
+                        </select>
+    
+                    </div>
+    
+    
+                    <button class="btn btn-secondary" type="submit">Add Ninja</button>
+                </form>
+            </div>
+        </div>    
+    </div>
+
+    <hr>
+    
+    <div class="container" style="margin-top: 45px;">
+        <h2 class="heading-2" style="text-align: center;">List of Dojos and Ninjas</h2>
+        <ul class="list-group">
+            {% for dojo in dojos %}
+            <li class="list-group-item">
+                <h2>
+                    Ninjas at {{dojo.name}} dojo
+                    <a class="btn btn-secondary" style="float: right;" href="{% url 'delete-dojo' dojo.id %}">Delete</a>
+                </h2>
+                <ul class="list-group">
+
+                    {% for ninja in ninjas %}
+
+                    {% if ninja.dojo == dojo %}
+                    <li class="list-group-item">
+                        {{ ninja.first_name }} {{ ninja.last_name }}
+                    </li>
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                </ul>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+    <script src="{% static 'dojo_ninjas_app/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
